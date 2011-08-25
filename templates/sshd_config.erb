@@ -6,9 +6,13 @@ Port 22
 
 #AddressFamily any
 # Use these options to restrict which interfaces/protocols sshd will bind to
-ListenAddress <%= ipaddress %>
-<% if scope.lookupvar('ssh::params::listen_on_private') && has_variable?('ipaddress_eth1') -%>
-ListenAddress <%= ipaddress_eth1 %>
+<% if scope.lookupvar('ssh::params::interfaces') -%>
+<% scope.lookupvar('ssh::params::interfaces').each do |interface| -%>
+ListenAddress <%= scope.lookupvar('ipaddress_' + interface) %>
+<% end -%>
+<% else -%>
+#ListenAddress ::
+#ListenAddress 0.0.0.0
 <% end -%>
 Protocol 2
 

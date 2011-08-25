@@ -13,16 +13,18 @@ class ssh::params {
 		/(?i)(Redhat|CentOS)/ => 'sshd'
 	}
 	
+	$interfaces = $ssh_interfaces ? {
+		''      => false,
+		default => split($ssh_interfaces, ','),
+	}
+	if $interface {
+	  $bind_address = inline_template("<%= scope.lookupvar('ipaddress_' + interface) %>")
+	}
+	
 	$permit_root_login = $ssh_permit_root_login ? {
 		'yes'   => 'yes',
 		'no'    => 'no',
 		default => 'no'
-	}
-	
-	$listen_on_private = $ssh_listen_on_private ? {
-		'true'  => true,
-		'false' => false,
-		default => false
 	}
 	
 	$password_authentication = $ssh_secure ? {
