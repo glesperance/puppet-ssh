@@ -11,6 +11,10 @@ class ssh::install {
 		ensure => latest
 	}
 	
+	package { 'dbus':
+	  ensure => latest
+	}
+	
 	if $operatingsystem =~ /(?i)(Debian|Ubuntu)/ {
 		package { [ 'openssh-blacklist', 'openssh-blacklist-extra' ]:
 			ensure => latest
