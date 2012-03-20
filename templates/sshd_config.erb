@@ -85,7 +85,7 @@ TCPKeepAlive yes
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 #AllowTcpForwarding yes
-#GatewayPorts no
+GatewayPorts <%= scope.lookupvar('ssh::params::gateway_ports') %>
 
 #UsePrivilegeSeparation yes
 #PermitUserEnvironment no

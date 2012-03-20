@@ -33,6 +33,14 @@ class ssh::params {
 		default => 'yes'
 	}
 	
+	$gateway_ports = $ssh_gateway_ports ? {
+		'true'	=> 'yes',
+		'false'	=> 'no',
+		'yes'		=> 'yes',
+		'no'		=> 'no',
+		default	=> 'no'
+	}
+	
 	$use_pam = $ssh_secure ? {
 		'true'  => 'no',
 		'false' => 'yes',
